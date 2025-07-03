@@ -80,7 +80,7 @@ public class EmployeeController {
     @ApiOperation("新增员工")
     public Result addEmployee(@RequestBody EmployeeDTO employeeDTO) {
         log.info("新增员工:{}", employeeDTO);
-        System.out.println("当前线程id："+Thread.currentThread().getId());
+        //System.out.println("当前线程id："+Thread.currentThread().getId());
         employeeService.save(employeeDTO);
         return Result.success();
     }
@@ -93,4 +93,11 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用、禁用员工账号")
+    public Result startOrStop(@PathVariable("status") Integer status,Long id) {
+        log.info("启用、禁用员工账号:{},{}", status,id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
+    }
 }
